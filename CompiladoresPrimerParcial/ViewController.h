@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SimpleStack.h"
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
     IBOutlet UITextField*expresion;
     IBOutlet UIButton*convertir;
@@ -17,6 +17,7 @@
     NSMutableArray*tempArray;
     NSDictionary * operatorPrecedence;
 
+    IBOutlet UITableView*historial;
 }
 
 

@@ -8,8 +8,8 @@
 
 #import "ViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "SimpleStack.h";
-
+#import "SimpleStack.h"
+#import "HistorialCell.h"
 @interface ViewController ()
 
 @end
@@ -30,6 +30,22 @@
     resultado.clipsToBounds = YES;
     bg.layer.cornerRadius = 5; // this value vary as per your desire
     bg.clipsToBounds = YES;
+    historial.layer.cornerRadius = 5; // this value vary as per your desire
+    historial.clipsToBounds = YES;
+
+    tempArray=[[NSMutableArray alloc] init];
+    NSUserDefaults*AppData=[NSUserDefaults standardUserDefaults];
+    NSString*cachePortada=[NSString stringWithFormat:@"%@",[AppData objectForKey:@"cacheData"]];
+    NSLog(@"%@",cachePortada);
+    if (![cachePortada isEqualToString:@"(null)"]) {
+        NSString *string = cachePortada;
+        //NSLog(string);
+        NSData * jsonData = [string dataUsingEncoding:NSUTF8StringEncoding];
+        NSError * error=nil;
+        tempArray= [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+        [historial reloadData];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,7 +55,10 @@
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
-
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [[self view] endEditing:YES];
+}
 
 -(IBAction)convertir:(id)sender{
   
@@ -114,8 +133,30 @@
         
         resultado.text=[NSString stringWithFormat:@"%@", [output stringByTrimmingCharactersInSet:
                 [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-        
+        NSDictionary*tmp=@{@"Inf":expresion.text,@"pos":resultado.text};
+        [self guardarHistorial:tmp];
+           }
+}
+-(void)guardarHistorial:(NSDictionary*)dic{
+    NSMutableArray*es=[[NSMutableArray alloc] init];
+    
+    [es addObject:dic];
+    for (int s=0; s<tempArray.count; s++) {
+        [es addObject:[tempArray objectAtIndex:s]];
     }
+    tempArray=[[NSMutableArray alloc] initWithArray:es];
+    [historial reloadData];
+    [[self view] endEditing:YES];
+    NSError *error;
+    
+    NSData       *finalData  = [NSJSONSerialization dataWithJSONObject:tempArray options:0 error:&error];
+    
+    NSLog(@"Error: %@",error);
+    NSString *string = [[NSString alloc] initWithData:finalData encoding:NSUTF8StringEncoding];
+    NSUserDefaults*AppData=[NSUserDefaults standardUserDefaults];
+    [AppData setObject:string forKey:@"cacheData" ];
+    [AppData synchronize];
+
 }
 - (NSArray*) tokenize: (NSString*) expression {
     NSMutableArray * tokens = [NSMutableArray arrayWithCapacity:[expression length]];
@@ -160,6 +201,7 @@
             case 'H':
             case 'I':
             case 'J':
+                 case '?':
             case '.':
                 nextMinusSignIsNegativeOperator = NO;
                 [numberBuf appendString : [NSString stringWithCharacters: &c length:1]];
@@ -190,12 +232,12 @@
 }
 
 - (NSUInteger) precedenceOf: (NSString*) operator{
-    if ([operator compare: @"+"] == 0 )
+    if ([operator compare: @"-"] == 0 )
         return 1;
     else if ([operator compare: @"-"] == 0 )
         return 1;
-   // else if ([operator compare: @""] == 0 )
-     //   return 2;
+    else if ([operator compare: @"?"] == 0 )
+       return 2;
     else if ([operator compare: @"|"] == 0 )
         return 2;
     else if ([operator compare: @"^"] == 0 )
@@ -220,4 +262,38 @@
     
     return  balanceado;
 }
+
+
+#pragma  mark tableview
+#pragma table
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return tempArray.count;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *MaillCellC = @"HistorialCell";
+    HistorialCell *cell = (HistorialCell *)[historial dequeueReusableCellWithIdentifier:MaillCellC];
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"HistorialCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    cell.backgroundColor=[UIColor clearColor];
+    cell.posf.text=[NSString stringWithFormat:@"%@",[[tempArray objectAtIndex:indexPath.row]objectForKey:@"pos"]];
+    cell.inf.text=[NSString stringWithFormat:@"%@",[[tempArray objectAtIndex:indexPath.row]objectForKey:@"Inf"]];
+    return cell;
+    
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    expresion.text=[NSString stringWithFormat:@"%@",[[tempArray objectAtIndex:indexPath.row]objectForKey:@"Inf"]];
+}
+
 @end
