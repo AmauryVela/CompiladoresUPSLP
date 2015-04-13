@@ -17,6 +17,8 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    [[self navigationController] setNavigationBarHidden:YES animated:NO];
+
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
     
@@ -61,7 +63,7 @@
 }
 
 -(IBAction)convertir:(id)sender{
-  
+    expresion.text=[expresion.text uppercaseString];
     
     if ( ! [self esExpBalanceada:expresion.text]){
         NSLog(@"Expresion no balanceada, revice sus ""("" y "")""");
@@ -201,7 +203,15 @@
             case 'H':
             case 'I':
             case 'J':
-                 case '?':
+            case 'K':
+            case 'L':
+            case 'M':
+            case 'N':
+            case 'O':
+            case 'P':
+            case 'Q':
+            case 'R':
+            case '?':
             case '.':
                 nextMinusSignIsNegativeOperator = NO;
                 [numberBuf appendString : [NSString stringWithCharacters: &c length:1]];
@@ -209,7 +219,7 @@
             case ' ':
                 break;
             default:
-                NSLog(@"Unsupported character in input expression : %c, discarding.", c);
+                NSLog(@"carcater ignorado %c", c);
                 break;
         }
     }
