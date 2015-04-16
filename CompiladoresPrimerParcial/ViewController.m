@@ -213,6 +213,8 @@
             case 'R':
             case '?':
             case '.':
+
+            case 'd':
                 nextMinusSignIsNegativeOperator = NO;
                 [numberBuf appendString : [NSString stringWithCharacters: &c length:1]];
                 break;
@@ -244,7 +246,7 @@
 - (NSUInteger) precedenceOf: (NSString*) operator{
     if ([operator compare: @"-"] == 0 )
         return 1;
-    else if ([operator compare: @"-"] == 0 )
+    else if ([operator compare: @"."] == 0 )
         return 1;
     else if ([operator compare: @"?"] == 0 )
        return 2;
