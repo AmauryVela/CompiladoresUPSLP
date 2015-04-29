@@ -1,4 +1,4 @@
 [{
-"Exp":"<A,_>a,A;b,B<B,_>b,A;a,C<C,_>"
+"Exp":"<A,_>a,A;b,B;c,C<B,_>b,A<C,_>b,A"
 }
 ]

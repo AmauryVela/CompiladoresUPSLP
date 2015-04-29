@@ -408,7 +408,7 @@
     else if ([operator compare: @"?"] == 0 )
        return 2;
     else if ([operator compare: @"|"] == 0 )
-        return 2;
+        return 1;
     else if ([operator compare: @"^"] == 0 )
         return 3;
     else //invalid operator
