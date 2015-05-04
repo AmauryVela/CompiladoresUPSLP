@@ -16,5 +16,7 @@
     NSMutableArray*finalData;
     IBOutlet UILabel*expd;
     NSString*dfsString;
+    
+    IBOutlet UITextField*expresionField;
 }
 @end

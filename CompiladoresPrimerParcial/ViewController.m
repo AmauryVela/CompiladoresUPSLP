@@ -38,7 +38,7 @@
     tempArray=[[NSMutableArray alloc] init];
     NSUserDefaults*AppData=[NSUserDefaults standardUserDefaults];
     NSString*cachePortada=[NSString stringWithFormat:@"%@",[AppData objectForKey:@"cacheData"]];
-    NSLog(@"%@",cachePortada);
+    //NSLog(@"%@",cachePortada);
     if (![cachePortada isEqualToString:@"(null)"]) {
         NSString *string = cachePortada;
         //NSLog(string);

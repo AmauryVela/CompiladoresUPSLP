@@ -33,7 +33,7 @@
 }
 
 -(IBAction)generarArbol:(id)sender{
-    NSString*expre=@"B*C?.A+B.|";
+    NSString*expre=@"B*C?.A+B.|#.";
     NSMutableArray *letterArray = [NSMutableArray array];
     NSString *letters = expre;
     [letters enumerateSubstringsInRange:NSMakeRange(0, [letters length])
@@ -41,25 +41,48 @@
                              usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
                                  [letterArray addObject:substring];
                              }];
+    int apuntador=0;
     NSDictionary*nodoIzqTmp;
     NSMutableArray*nodos=[[NSMutableArray alloc] init];
     for (int i=0; i<letterArray.count; i++) {
         NSString*caracter=[letterArray objectAtIndex:i];
+        NSLog(@"Ingresa caracter: %@ ",caracter);
         if ([caracter isEqualToString:@"+"]||[caracter isEqualToString:@"*"]||[caracter isEqualToString:@"?"]) {
             //Tiene un hijo que es el hijo izq
-           NSDictionary* nodoTmp=@{@"Nodo":caracter,@"Izq":nodoIzqTmp};
+           NSDictionary* nodoTmp=@{@"Nodo":caracter,@"Izq":[nodos objectAtIndex:nodos.count-1]};
+           // NSLog(@"Crea un nodo con hijo Izquierdo: %@",nodoTmp);
+            [nodos removeObjectAtIndex:nodos.count-1];
             [nodos addObject:nodoTmp];
         }else if ([caracter isEqualToString:@"."]||[caracter isEqualToString:@"|"]){
             //Es padre con 2 hijos
-            NSDictionary*nodoTmp=@{@"Nodo":caracter,@"Izq":[nodos objectAtIndex:0],@"Der":[nodos objectAtIndex:1]};
-            nodos=[[NSMutableArray alloc] init];
+            NSDictionary*nodoTmp=@{@"Nodo":caracter,@"Izq":[nodos objectAtIndex:nodos.count-2],@"Der":[nodos objectAtIndex:nodos.count-1]};
+            NSLog(@"Crea un Padre: %@",nodoTmp);
+            [nodos removeObjectAtIndex:nodos.count-1];
+            if (nodos.count>=2) {
+                [nodos removeObjectAtIndex:nodos.count-1];
+                //NSLog(@"********");
+            }
             [nodos addObject:nodoTmp];
         }else{
-            nodoIzqTmp=@{@"Nodo":caracter};
-
+                nodoIzqTmp=@{@"Nodo":caracter};
+                [nodos addObject:nodoIzqTmp];
+                apuntador=1;
         }
     }
-
+   // NSLog(@"Al final: %@",[nodos objectAtIndex:1]);
+    NSError *error;
+    NSMutableArray*ObjetoFinal=[[NSMutableArray alloc]init];
+    [ObjetoFinal addObject:[nodos lastObject]];
+    NSData       *finalDataz  = [NSJSONSerialization dataWithJSONObject:ObjetoFinal options:0 error:&error];
+    
+    NSLog(@"Error: %@",error);
+    NSString *string = [[NSString alloc] initWithData:finalDataz encoding:NSUTF8StringEncoding];
+    NSData * jsonData = [string dataUsingEncoding:NSUTF8StringEncoding];
+    datos= [NSJSONSerialization JSONObjectWithData:finalDataz options:0 error:&error];
+    NSLog(@"Datos: %lu",(unsigned long)datos.count);
+    NSLog(@"JSON: %@",datos);
+    dfsString=@"";
+    [self getNode:[datos objectAtIndex:0]];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -81,4 +104,7 @@
     NSLog(@"%@",dfsString);
 }
 
+
+
+#pragma mark conversorPolaka
 @end
