@@ -1,13 +1,34 @@
 [{
-	"Exp":"A*B(C|D)",
-	"Pos":"A*BCD|"
-},
-{
-	"Exp":"(C|D)",
-	"Pos":"CD|"
-},
-{
-    "Exp":"(C|D)?",
-    "Pos":"CD?|"
-}
-]
+	"Nodo":"|",
+    "Izq":{
+       "Nodo":".",
+        "Izq":{
+            "Nodo":"*",
+            "Izq":{
+                "Nodo":"B",
+
+                },
+
+        },
+        "Der":{
+            "Nodo":"?",
+            "Izq":{
+                "Nodo":"C"
+            }
+        }
+    },
+    "Der":{
+        "Nodo":".",
+        "Izq":{
+            "Nodo":"+",
+            "Izq":{
+                "Nodo":"A"
+            }
+        },
+        "Der":{
+            "Nodo":"B"
+        }
+
+    }
+
+}]

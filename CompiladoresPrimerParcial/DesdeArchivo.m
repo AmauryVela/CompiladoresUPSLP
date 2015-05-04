@@ -25,7 +25,7 @@
 
     
     // Do any additional setup after loading the view.
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"archivo"
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"archivo3"
                                                      ofType:@"txt"];
     NSString* content = [NSString stringWithContentsOfFile:path
                                                   encoding:NSUTF8StringEncoding

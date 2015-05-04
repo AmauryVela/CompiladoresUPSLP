@@ -18,6 +18,8 @@
 		80A71CA51A9C434D00517C85 /* SimpleStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A71CA41A9C434D00517C85 /* SimpleStack.m */; };
 		80A71CA91A9C4ADD00517C85 /* HistorialCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A71CA71A9C4ADD00517C85 /* HistorialCell.m */; };
 		80A71CAA1A9C4ADD00517C85 /* HistorialCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80A71CA81A9C4ADD00517C85 /* HistorialCell.xib */; };
+		C4004C891AF2CF59001D4B91 /* archivo3.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4004C881AF2CF59001D4B91 /* archivo3.txt */; };
+		C4004C8C1AF2D138001D4B91 /* DFS.m in Sources */ = {isa = PBXBuildFile; fileRef = C4004C8B1AF2D138001D4B91 /* DFS.m */; };
 		C42BC6F01AE02CF7006F4E52 /* GenerarArbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C42BC6EF1AE02CF7006F4E52 /* GenerarArbol.m */; };
 		C42BC6F21AE02DFF006F4E52 /* archivo2.txt in Resources */ = {isa = PBXBuildFile; fileRef = C42BC6F11AE02DFF006F4E52 /* archivo2.txt */; };
 		C42BC6F61AE03CCF006F4E52 /* NodoPadreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C42BC6F41AE03CCF006F4E52 /* NodoPadreCell.m */; };
@@ -62,6 +64,9 @@
 		80A71CA61A9C4ADD00517C85 /* HistorialCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistorialCell.h; sourceTree = "<group>"; };
 		80A71CA71A9C4ADD00517C85 /* HistorialCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistorialCell.m; sourceTree = "<group>"; };
 		80A71CA81A9C4ADD00517C85 /* HistorialCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistorialCell.xib; sourceTree = "<group>"; };
+		C4004C881AF2CF59001D4B91 /* archivo3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = archivo3.txt; sourceTree = "<group>"; };
+		C4004C8A1AF2D138001D4B91 /* DFS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFS.h; sourceTree = "<group>"; };
+		C4004C8B1AF2D138001D4B91 /* DFS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFS.m; sourceTree = "<group>"; };
 		C42BC6EE1AE02CF7006F4E52 /* GenerarArbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenerarArbol.h; sourceTree = "<group>"; };
 		C42BC6EF1AE02CF7006F4E52 /* GenerarArbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenerarArbol.m; sourceTree = "<group>"; };
 		C42BC6F11AE02DFF006F4E52 /* archivo2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = archivo2.txt; sourceTree = "<group>"; };
@@ -128,6 +133,8 @@
 				80629EA41A9C30920085E366 /* Main.storyboard */,
 				80629EA11A9C30920085E366 /* ViewController.h */,
 				80629EA21A9C30920085E366 /* ViewController.m */,
+				C4004C8A1AF2D138001D4B91 /* DFS.h */,
+				C4004C8B1AF2D138001D4B91 /* DFS.m */,
 				C42BC6EE1AE02CF7006F4E52 /* GenerarArbol.h */,
 				C42BC6EF1AE02CF7006F4E52 /* GenerarArbol.m */,
 				C43A37E41A9F9CD300FA1C27 /* DesdeArchivo.h */,
@@ -139,6 +146,7 @@
 				C43A37EE1A9FA21900FA1C27 /* ArchivoCell.xib */,
 				C43A37E71A9FA11E00FA1C27 /* archivo.txt */,
 				C42BC6F11AE02DFF006F4E52 /* archivo2.txt */,
+				C4004C881AF2CF59001D4B91 /* archivo3.txt */,
 				C42BC6F31AE03CCF006F4E52 /* NodoPadreCell.h */,
 				C42BC6F41AE03CCF006F4E52 /* NodoPadreCell.m */,
 				C42BC6FD1AE03D42006F4E52 /* Screenshot 2015-04-16 13.55.56.png */,
@@ -272,6 +280,7 @@
 				C42BC6FE1AE03D42006F4E52 /* Screenshot 2015-04-16 13.55.56.png in Resources */,
 				80629EAB1A9C30920085E366 /* LaunchScreen.xib in Resources */,
 				80629EA81A9C30920085E366 /* Images.xcassets in Resources */,
+				C4004C891AF2CF59001D4B91 /* archivo3.txt in Resources */,
 				C42BC6F71AE03CCF006F4E52 /* NodoPadreCell.xib in Resources */,
 				C43A37E81A9FA11E00FA1C27 /* archivo.txt in Resources */,
 			);
@@ -300,6 +309,7 @@
 				80629EA31A9C30920085E366 /* ViewController.m in Sources */,
 				C42BC6FB1AE03D0B006F4E52 /* NodoHijo.m in Sources */,
 				C43A37F31A9FB47B00FA1C27 /* Acercade.m in Sources */,
+				C4004C8C1AF2D138001D4B91 /* DFS.m in Sources */,
 				80629EA01A9C30920085E366 /* AppDelegate.m in Sources */,
 				80629E9D1A9C30920085E366 /* main.m in Sources */,
 			);
