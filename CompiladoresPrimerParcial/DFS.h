@@ -18,5 +18,6 @@
     NSString*dfsString;
     
     IBOutlet UITextField*expresionField;
+    IBOutlet UILabel* resultado;
 }
 @end
