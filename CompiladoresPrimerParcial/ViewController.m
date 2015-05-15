@@ -48,6 +48,8 @@
         [historial reloadData];
     }
     
+    [self checkStringAndAdd];
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,6 +62,23 @@
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [[self view] endEditing:YES];
+}
+
+-(BOOL)esCaracterEspecial:(NSString*)caracter{
+    if ([caracter isEqualToString:@"*"]||[caracter isEqualToString:@"+"]||[caracter isEqualToString:@"?"]) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+-(BOOL)esCaracterLetra:(NSString*)caracter{
+    NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    if  ([letters rangeOfString:caracter].location != NSNotFound) {
+        return true;
+    }else{
+        return false;
+    }
 }
 -(NSString*)checkStringAndAdd{
     
@@ -81,62 +100,66 @@
                              }];
     NSString*test=@"";
    int x=0;
+    NSMutableArray* final=[[NSMutableArray alloc] init];
+    NSMutableArray*temp=[[NSMutableArray alloc] init];
+    
     for (NSString *i in letterArray){
+        NSString*ptemp=test;
+
         if (x<letterArray.count-1) {
             NSString*sig=[letterArray objectAtIndex:x+1];
-            NSString*ptemp=test;
-
-            
-            
-            
-            
-            if (![[letterArray objectAtIndex:x] isEqualToString:@"*"]) {
-                if (![[letterArray objectAtIndex:x] isEqualToString:@"?"]) {
-                    if (![[letterArray objectAtIndex:x] isEqualToString:@"|"]) {
-                        if (![[letterArray objectAtIndex:x] isEqualToString:@"+"]) {
-                            test=[NSString stringWithFormat:@"%@%@",ptemp,[letterArray objectAtIndex:x]];
-                            NSLog(@"%@ y %d elquesigue %@ cadena %@",i,x,sig,test);
-                            if (![sig isEqualToString:@"*"]) {
-                                if (![sig isEqualToString:@"?"]) {
-                                    if (![sig isEqualToString:@"|"]) {
-                                        if (![sig isEqualToString:@"+"]) {
-                                            NSString*ptempd=test;
-                                            if ([sig isEqualToString:@" "]) {
-                                                
-
-                                            }else{
-                                                test=[NSString stringWithFormat:@"%@.",ptempd];
-
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                        }else{
-                            test=[NSString stringWithFormat:@"%@%@",ptemp,[letterArray objectAtIndex:x]];
-                        }
-                    }
-                    else{
-                        test=[NSString stringWithFormat:@"%@%@",ptemp,[letterArray objectAtIndex:x]];
-
-                        
-                    }
+            if ([self esCaracterLetra:i]) {
+                //Es letra entonces hay que ver si el siguiente tambien es letra
+                if ([self esCaracterLetra:sig]) {
+                    //Entonces guardo el caracter con el punto en el arreglo
+                    [temp addObject:[NSString stringWithFormat:@"%@.",i]];
                 }else{
-                    test=[NSString stringWithFormat:@"%@%@",ptemp,[letterArray objectAtIndex:x]];
+                    [temp addObject:[NSString stringWithFormat:@"%@",i]];
+
                 }
-            }else{
-                test=[NSString stringWithFormat:@"%@%@",ptemp,[letterArray objectAtIndex:x]];
             }
-            
-            
-            
-                    }
-       
+            else if ([self esCaracterEspecial:i]){
+              //Es caracter  *   +   ?
+                if ([self esCaracterLetra:sig]) {
+                    //Entonces guardo el caracter con el punto en el arreglo
+                    [temp addObject:[NSString stringWithFormat:@"%@.",i]];
+                }else{
+                    [temp addObject:[NSString stringWithFormat:@"%@",i]];
+                }
+            }
+            else if ([i isEqualToString:@"|"]||[i isEqualToString:@"("]){
+                [temp addObject:[NSString stringWithFormat:@"%@",i]];
+
+            }
+            else if ([i isEqualToString:@")"]){
+                if ([self esCaracterLetra:sig]) {
+                    //Entonces guardo el caracter con el punto en el arreglo
+                    [temp addObject:[NSString stringWithFormat:@"%@.",i]];
+                }else{
+                    [temp addObject:[NSString stringWithFormat:@"%@",i]];
+                }
+            }
+            else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ERROR"
+                                                                message:@"EXPRESION NO VALIDA"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+        }
+        else{
+            [temp addObject:[NSString stringWithFormat:@"%@",i]];
+        }
         x++;
     }
+    
+    for (int o=0; o<temp.count; o++) {
+        NSString*ptemp=test;
+        test=[NSString stringWithFormat:@"%@%@",ptemp,[temp objectAtIndex:o]];
+    }
     NSLog(@"*********%@*******",test);
-    return test;
+    return [NSString stringWithFormat:@"%@.#",test];
 
 }
 -(IBAction)convertorPun:(id)sender{
@@ -368,8 +391,16 @@
             case 'P':
             case 'Q':
             case 'R':
+            case 'S':
+            case 'T':
+            case 'U':
+            case 'V':
+            case 'W':
+            case 'Z':
+            case 'X':
+            case 'Y':
             case '?':
-
+            case '#':
             case 'd':
                 nextMinusSignIsNegativeOperator = NO;
                 [numberBuf appendString : [NSString stringWithCharacters: &c length:1]];
