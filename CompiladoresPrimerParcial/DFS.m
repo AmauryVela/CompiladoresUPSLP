@@ -78,6 +78,7 @@
     NSLog(@"Error: %@",error);
     NSString *string = [[NSString alloc] initWithData:finalDataz encoding:NSUTF8StringEncoding];
     NSData * jsonData = [string dataUsingEncoding:NSUTF8StringEncoding];
+
     datos= [NSJSONSerialization JSONObjectWithData:finalDataz options:0 error:&error];
     NSLog(@"Datos: %lu",(unsigned long)datos.count);
     NSLog(@"JSON: %@",datos);
@@ -232,9 +233,17 @@
             case 'P':
             case 'Q':
             case 'R':
-            case '#':
+            case 'S':
+            case 'T':
+            case 'U':
+            case 'V':
+            case 'W':
+            case 'Z':
+            case 'X':
+            case 'Y':
             case '?':
-                
+            case '@':
+            case '#':
             case 'd':
                 nextMinusSignIsNegativeOperator = NO;
                 [numberBuf appendString : [NSString stringWithCharacters: &c length:1]];

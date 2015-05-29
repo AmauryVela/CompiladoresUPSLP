@@ -18,6 +18,14 @@
     NSDictionary * operatorPrecedence;
 
     IBOutlet UITableView*historial;
+    
+    NSMutableArray*datos;
+    IBOutlet UITableView*tabla;
+    NSMutableArray*finalData;
+    IBOutlet UILabel*expd;
+    NSString*dfsString;
+    
+    IBOutlet UITextField*expresionField;
 }
 
 
